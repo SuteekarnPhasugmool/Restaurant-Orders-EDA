@@ -1,3 +1,4 @@
+-- Select all columns from menu_items
 SELECT *
 FROM menu_items;
 
@@ -16,7 +17,7 @@ FROM menu_items;
 -- How many dishes are there in each category?
 SELECT
 	category,
-    COUNT(item_name) AS menu
+	COUNT(item_name) AS menu
 FROM menu_items
 GROUP BY category;
 
@@ -43,9 +44,9 @@ ORDER BY price DESC;
 -- Maximum price, minimum price, and average price of each category
 SELECT
 	category,
-    MAX(price) AS max_price,
-    MIN(price) AS min_price,
-    ROUND(AVG(price),2) AS avg_price
+	MAX(price) AS max_price,
+	MIN(price) AS min_price,
+	ROUND(AVG(price),2) AS avg_price
 FROM menu_items
 GROUP BY category;
 
@@ -73,6 +74,7 @@ JOIN
 ON
     m.category = min_p.category AND m.price = min_p.min_price;
 
+-- Select all columns from order_details
 SELECT *
 FROM order_details;
 
@@ -84,12 +86,12 @@ FROM order_details;
 SELECT
 	men.menu_item_id,
 	men.item_name,
-    men.category,
-    men.price,
-    top.order_quantity
+	men.category,
+	men.price,
+	top.order_quantity
 FROM menu_items AS men
 JOIN
-    (SELECT 
+	(SELECT 
 		item_id,
 		COUNT(*) AS order_quantity
 	FROM order_details
@@ -102,12 +104,12 @@ LIMIT 5;
 SELECT
 	men.menu_item_id,
 	men.item_name,
-    men.category,
-    men.price,
-    least.order_quantity
+	men.category,
+	men.price,
+	least.order_quantity
 FROM menu_items AS men
 JOIN
-    (SELECT 
+	(SELECT 
 		item_id,
 		COUNT(*) AS order_quantity
 	FROM order_details
@@ -130,10 +132,10 @@ LIMIT 5;
 -- What did the highest-spending orders buy?
 SELECT
 	ord.order_id,
-    ord.item_id,
-    men.item_name,
-    men.category,
-    men.price
+	ord.item_id,
+	men.item_name,
+	men.category,
+	men.price
 FROM order_details AS ord
 JOIN
 	(SELECT
@@ -150,12 +152,12 @@ JOIN menu_items AS men
 ON men.menu_item_id = ord.item_id
 ORDER BY
 	ord.order_id,
-    men.price DESC;
+	men.price DESC;
     
 -- The amount of menu in highest-spending orders by category
 SELECT
 	men.category,
-    COUNT(*) AS menu_amount
+	COUNT(*) AS menu_amount
 FROM order_details AS ord
 JOIN
 	(SELECT
